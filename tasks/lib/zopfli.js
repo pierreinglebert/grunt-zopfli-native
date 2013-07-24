@@ -9,7 +9,7 @@ module.exports = function(grunt) {
   'use strict';
 
   var exports = {
-    options: {}
+    options: { verbose: false }
   };
 
   // 1 to 1 gziping of files
