@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-zopfli",
   "description": "Compress files and folders using zopfli algorithm.",
-  "version": "0.5.0",
+  "version": "0.4.0",
   "homepage": "https://github.com/pierreinglebert/grunt-contrib-zopfli",
   "author": {
     "name": "Pierre Inglebert",
@@ -23,9 +23,7 @@
   },
   "dependencies": {
     "archiver": "~0.4.2",
-    "node-zopfli": "*",
-    "lazystream": "~0.1.0",
-    "prettysize": "~0.0.2"
+    "node-zopfli": "*"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.2.0",
@@ -39,6 +37,6 @@
     "grunt": "~0.4.0"
   },
   "keywords": [
-    "gruntplugin"
+    "grunt", "zopfli", "gruntplugin", "gzip", "zlib", "compress"
   ]
 }

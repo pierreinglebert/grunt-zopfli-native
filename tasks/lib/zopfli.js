@@ -2,8 +2,6 @@ var fs = require('fs');
 var path = require('path');
 var prettySize = require('prettysize');
 var zopfli = require('node-zopfli');
-var archiver = require('archiver');
-var Readable = require('lazystream').Readable;
 
 module.exports = function(grunt) {
   'use strict';
