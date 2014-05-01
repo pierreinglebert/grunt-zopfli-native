@@ -1,38 +1,33 @@
 {
-  "name": "grunt-contrib-zopfli",
+  "name": "grunt-zopfli-native",
   "description": "Compress files and folders using zopfli algorithm.",
   "version": "0.4.1",
-  "homepage": "https://github.com/pierreinglebert/grunt-contrib-zopfli",
+  "homepage": "https://github.com/pierreinglebert/grunt-zopfli-native",
   "author": {
     "name": "Pierre Inglebert",
     "url": "https://github.com/pierreinglebert"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/pierreinglebert/grunt-contrib-zopfli.git"
+    "url": "git://github.com/pierreinglebert/grunt-zopfli-native.git"
   },
   "bugs": {
-    "url": "https://github.com/pierreinglebert/grunt-contrib-zopfli/issues"
+    "url": "https://github.com/pierreinglebert/grunt-zopfli-native/issues"
   },
   "main": "Gruntfile.js",
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "grunt test -v"
+    "test": "grunt"
   },
   "dependencies": {
-    "archiver": "~0.4.2",
     "node-zopfli": "*",
     "prettysize": "0.0.3"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.2.0",
-    "grunt-contrib-nodeunit": "~0.1.2",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-internal": "~0.4.2",
-    "grunt": "~0.4.0",
-    "tar": "~0.1.17"
+    "grunt": "~0.4.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.0"

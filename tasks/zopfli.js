@@ -1,23 +1,36 @@
+'use strict';
+
 module.exports = function(grunt) {
-  'use strict';
 
   var zopfli = require('./lib/zopfli')(grunt);
 
   grunt.registerMultiTask('zopfli', 'Compress files.', function() {
     zopfli.options = this.options({
+      mode: null,
+      extension: null,
+      zopfliOptions: {}
     });
 
-    zopfli.options.mode = zopfli.options.mode || zopfli.autoDetectMode(zopfli.options.archive);
-    grunt.verbose.writeflags(zopfli.options, 'Options');
+    grunt.util.async.forEachSeries(this.files, function(filePair, nextPair) {
+      grunt.util.async.forEachSeries(filePair.src, function(src, nextFile) {
+        if (grunt.file.isDir(src)) {
+          return nextFile();
+        }
 
-    if (grunt.util._.include(['gzip', 'deflate', 'deflateRaw'], zopfli.options.mode) === false) {
-      grunt.fail.warn('Mode ' + String(zopfli.options.mode).cyan + ' not supported.');
-    }
+        if(zopfli.options.mode === null) {
+          zopfli.options.mode = zopfli.detectMode(filePair.dest, zopfli.options.extension);
+        }
 
-    if (zopfli.options.mode === 'gzip' || zopfli.options.mode.slice(0, 7) === 'deflate') {
-      zopfli[zopfli.options.mode](this.files, this.async());
-    } else {
-      zopfli.tar(this.files, this.async());
-    }
+        if(zopfli.options.extension === null) {
+          zopfli.options.extension = zopfli.detectExtension(zopfli.options.extension);
+        }
+
+        if (grunt.util._.include(['gzip', 'zlib', 'deflate'], zopfli.options.mode) === false) {
+          grunt.fail.warn('Mode ' + zopfli.options.mode + ' is not supported.');
+        }
+        console.log(src, filePair.dest);
+        zopfli.compressFile(src, filePair.dest, zopfli.options.mode, zopfli.options.extension, zopfli.options.zopfliOptions, nextFile);
+      }, nextPair);
+    });
   });
 };

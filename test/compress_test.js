@@ -6,46 +6,6 @@ var tar = require('tar');
 var zopfli = require('../tasks/lib/zopfli')(grunt);
 
 exports.compress = {
-  /*
-  tar: function(test) {
-    test.expect(1);
-    var expected = [
-      'folder_one/one.css', 'folder_one/one.js',
-      'folder_two/two.css', 'folder_two/two.js',
-      'test.css', 'test.js'
-    ];
-    var actual = [];
-    var parse = tar.Parse();
-    fs.createReadStream(path.join('tmp', 'compress_test_files.tar')).pipe(parse);
-    parse.on('entry', function(entry) {
-      actual.push(entry.path);
-    });
-    parse.on('end', function() {
-      test.deepEqual(actual, expected, 'tar file should untar and contain all of the expected files');
-      test.done();
-    });
-  },
-  tgz: function(test) {
-    test.expect(1);
-    var expected = [
-      'folder_one/one.css', 'folder_one/one.js',
-      'folder_two/two.css', 'folder_two/two.js',
-      'test.css', 'test.js'
-    ];
-    var actual = [];
-    var parse = tar.Parse();
-    fs.createReadStream(path.join('tmp', 'compress_test_files.tgz'))
-      .pipe(zlib.createGunzip())
-      .pipe(parse);
-    parse.on('entry', function(entry) {
-      actual.push(entry.path);
-    });
-    parse.on('end', function() {
-      test.deepEqual(actual, expected, 'tgz file should gunzip/untar and contain all of the expected files');
-      test.done();
-    });
-  },
-  */
   gzip: function(test) {
     test.expect(3);
     grunt.util.async.forEachSeries([
@@ -66,7 +26,6 @@ exports.compress = {
         });
     }, test.done);
   },
-  /*
   gzipCustomExt: function(test) {
     test.expect(3);
     [
@@ -79,8 +38,7 @@ exports.compress = {
     });
     test.done();
   },
-  */
-  deflate: function(test) {
+  zlib: function(test) {
     test.expect(3);
     grunt.util.async.forEachSeries([
       'test.js',
@@ -89,7 +47,7 @@ exports.compress = {
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';
-      fs.createReadStream(path.join('tmp', 'deflate', file + '.deflate'))
+      fs.createReadStream(path.join('tmp', 'deflate', file + '.zz'))
         .pipe(zlib.createInflate())
         .on('data', function(buf) {
           actual += buf.toString();
@@ -100,7 +58,7 @@ exports.compress = {
         });
     }, test.done);
   },
-  deflateRaw: function(test) {
+  deflate: function(test) {
     test.expect(3);
     grunt.util.async.forEachSeries([
       'test.js',
@@ -109,7 +67,7 @@ exports.compress = {
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';
-      fs.createReadStream(path.join('tmp', 'deflateRaw', file + '.deflate'))
+      fs.createReadStream(path.join('tmp', 'deflate', file + '.deflate'))
         .pipe(zlib.createInflateRaw())
         .on('data', function(buf) {
           actual += buf.toString();
