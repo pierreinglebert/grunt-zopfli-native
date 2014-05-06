@@ -1,4 +1,4 @@
-grunt-contrib-zopfli
+grunt-zopfli-native
 ====================
 
 Compress your files with zopfli without installing anything.
