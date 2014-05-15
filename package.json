@@ -22,7 +22,7 @@
     "test": "grunt"
   },
   "dependencies": {
-    "node-zopfli": "*",
+    "node-zopfli": "1.1.*",
     "prettysize": "0.0.3"
   },
   "devDependencies": {
