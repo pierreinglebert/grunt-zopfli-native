@@ -22,6 +22,7 @@
     "test": "grunt"
   },
   "dependencies": {
+    "async": "^0.9.0",
     "node-zopfli": "1.1.*",
     "prettysize": "0.0.3"
   },
