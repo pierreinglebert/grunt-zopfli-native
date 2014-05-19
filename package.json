@@ -1,7 +1,7 @@
 {
   "name": "grunt-zopfli-native",
   "description": "Compress files and folders using zopfli algorithm.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "homepage": "https://github.com/pierreinglebert/grunt-zopfli-native",
   "author": {
     "name": "Pierre Inglebert",
