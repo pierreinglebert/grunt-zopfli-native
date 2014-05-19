@@ -75,7 +75,6 @@ module.exports = function(grunt) {
       grunt.log.writeln('Created ' + String(dest).cyan);
       next();
     });
-    console.log("compress");
     fs.createReadStream(src).pipe(compressStream).pipe(destStream);
   };
 
@@ -162,7 +161,7 @@ module.exports = function(grunt) {
     return Number(size);
   };
 
-  
+
   exports.unixifyPath = function(filepath) {
     if (process.platform === 'win32') {
       return filepath.replace(/\\/g, '/');
