@@ -11,6 +11,8 @@ module.exports = function(grunt) {
       zopfliOptions: {}
     });
 
+    var done = this.async();
+
     grunt.util.async.forEachSeries(this.files, function(filePair, nextPair) {
       grunt.util.async.forEachSeries(filePair.src, function(src, nextFile) {
         if (grunt.file.isDir(src)) {
@@ -28,9 +30,11 @@ module.exports = function(grunt) {
         if (grunt.util._.include(['gzip', 'zlib', 'deflate'], zopfli.options.mode) === false) {
           grunt.fail.warn('Mode ' + zopfli.options.mode + ' is not supported.');
         }
-        console.log(src, filePair.dest);
+        grunt.log.writeln(src, filePair.dest);
         zopfli.compressFile(src, filePair.dest, zopfli.options.mode, zopfli.options.extension, zopfli.options.zopfliOptions, nextFile);
       }, nextPair);
+    }, function(error) {
+      done(!error);
     });
   });
 };
