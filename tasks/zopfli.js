@@ -1,5 +1,7 @@
 'use strict';
 
+var async = require('async');
+
 module.exports = function(grunt) {
 
   var zopfli = require('./lib/zopfli')(grunt);
@@ -13,8 +15,8 @@ module.exports = function(grunt) {
 
     var done = this.async();
 
-    grunt.util.async.forEachSeries(this.files, function(filePair, nextPair) {
-      grunt.util.async.forEachSeries(filePair.src, function(src, nextFile) {
+    async.forEachSeries(this.files, function(filePair, nextPair) {
+      async.forEachSeries(filePair.src, function(src, nextFile) {
         if (grunt.file.isDir(src)) {
           return nextFile();
         }
@@ -24,13 +26,12 @@ module.exports = function(grunt) {
         }
 
         if(zopfli.options.extension === null) {
-          zopfli.options.extension = zopfli.detectExtension(zopfli.options.extension);
+          zopfli.options.extension = zopfli.detectExtension(zopfli.options.mode);
         }
 
         if (grunt.util._.include(['gzip', 'zlib', 'deflate'], zopfli.options.mode) === false) {
           grunt.fail.warn('Mode ' + zopfli.options.mode + ' is not supported.');
         }
-        grunt.log.writeln(src, filePair.dest);
         zopfli.compressFile(src, filePair.dest, zopfli.options.mode, zopfli.options.extension, zopfli.options.zopfliOptions, nextFile);
       }, nextPair);
     }, function(error) {

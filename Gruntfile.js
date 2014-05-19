@@ -13,6 +13,9 @@ module.exports = function(grunt) {
       }
     },
 
+    clean: {
+      test: ['tmp']
+    },
 
     // Configuration to be run (and then tested).
     zopfli: {
@@ -43,6 +46,16 @@ module.exports = function(grunt) {
           mode: 'deflate'
         }
       },
+      gzipWithCustomExt: {
+        expand: true,
+        cwd: 'test/fixtures/',
+        src: ['**/*'],
+        dest: 'tmp/customExt/',
+        options: {
+          mode: 'gzip',
+          extension: 'custom'
+        }
+      },
       gzipWithFolders: {
         expand: true,
         cwd: 'test/fixtures/',
@@ -52,6 +65,11 @@ module.exports = function(grunt) {
           mode: 'gzip'
         }
       }
+    },
+
+    // Unit tests.
+    nodeunit: {
+      tests: ['test/*_test.js']
     }
   });
 
@@ -59,5 +77,8 @@ module.exports = function(grunt) {
   grunt.loadTasks('tasks');
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.registerTask('default', ['jshint', 'zopfli']);
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+
+  grunt.registerTask('default', ['clean', 'jshint', 'zopfli', 'nodeunit']);
 };
