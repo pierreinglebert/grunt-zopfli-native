@@ -70,7 +70,7 @@ zopfli: {
 }
 ```
 
-#### Compress your files for prodection
+#### Compress your files for production
 ```js
 zopfli: {
   main: {
