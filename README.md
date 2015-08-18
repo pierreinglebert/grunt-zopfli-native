@@ -44,6 +44,8 @@ Forces an extension to your files. Defaults depends on the mode chosen.
 
 Limit on the number of files compressed in parallel. Defaults to the number of CPUs on the host (as per the `os` module).
 
+_Setting this limit greater than UV_THREADPOOL_SIZE (defaults to 4) won't really work as desired. Increasing UV_THREADPOOL_SIZE is a good idea if needed. (e.g. `UV_THREADPOOL_SIZE=10 grunt zopfli`)_
+
 ```javascript
  zopfli({ limit: 1 })
  ```
