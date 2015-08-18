@@ -37,7 +37,7 @@ module.exports = function(grunt) {
         }
         promises.push(function(cb) {
           zopfli.compressFile(src, filePair.dest, zopfli.options.mode, zopfli.options.extension, zopfli.options.zopfliOptions, cb);
-        })
+        });
       });
     });
     async.parallelLimit(promises, zopfli.options.limit, function(error) {
