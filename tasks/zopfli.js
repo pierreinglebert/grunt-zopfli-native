@@ -1,6 +1,7 @@
 'use strict';
 
-var async = require('async');
+var async = require('async'),
+  os = require('os');
 
 module.exports = function(grunt) {
 
@@ -10,15 +11,17 @@ module.exports = function(grunt) {
     zopfli.options = this.options({
       mode: null,
       extension: null,
+      limit: os.cpus().length,
       zopfliOptions: {}
     });
 
-    var done = this.async();
+    var done = this.async(),
+      promises = [];
 
-    async.forEachSeries(this.files, function(filePair, nextPair) {
-      async.forEachSeries(filePair.src, function(src, nextFile) {
+    this.files.forEach(function(filePair) {
+      filePair.src.forEach(function(src) {
         if (grunt.file.isDir(src)) {
-          return nextFile();
+          return;
         }
 
         if(zopfli.options.mode === null) {
@@ -32,9 +35,12 @@ module.exports = function(grunt) {
         if (grunt.util._.include(['gzip', 'zlib', 'deflate'], zopfli.options.mode) === false) {
           grunt.fail.warn('Mode ' + zopfli.options.mode + ' is not supported.');
         }
-        zopfli.compressFile(src, filePair.dest, zopfli.options.mode, zopfli.options.extension, zopfli.options.zopfliOptions, nextFile);
-      }, nextPair);
-    }, function(error) {
+        promises.push(function(cb) {
+          zopfli.compressFile(src, filePair.dest, zopfli.options.mode, zopfli.options.extension, zopfli.options.zopfliOptions, cb);
+        });
+      });
+    });
+    async.parallelLimit(promises, zopfli.options.limit, function(error) {
       done(!error);
     });
   });
