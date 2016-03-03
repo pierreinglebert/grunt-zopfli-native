@@ -21,8 +21,7 @@
   },
   "dependencies": {
     "async": "^1.5.2",
-    "node-zopfli": "^1.1.0",
-    "prettysize": "^0.0.3"
+    "node-zopfli": "^1.1.0"
   },
   "devDependencies": {
     "grunt": "^0.4.0",
