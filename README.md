@@ -1,10 +1,6 @@
-grunt-zopfli-native
-====================
+# grunt-zopfli-native [![Linux Build Status](https://img.shields.io/travis/pierreinglebert/grunt-zopfli-native/master.svg?label=Linux%20build)](https://travis-ci.org/pierreinglebert/grunt-zopfli-native) [![Dependency Status](https://img.shields.io/david/pierreinglebert/grunt-zopfli-native.svg)](https://david-dm.org/pierreinglebert/grunt-zopfli-native) [![devDependency Status](https://img.shields.io/david/dev/pierreinglebert/grunt-zopfli-native.svg)](https://david-dm.org/pierreinglebert/grunt-zopfli-native#info=devDependencies)
 
 Compress your files with zopfli without installing anything.
-
-[![Build Status](https://secure.travis-ci.org/pierreinglebert/grunt-zopfli-native.png)](http://travis-ci.org/pierreinglebert/grunt-zopfli-native) [![Dependency Status](https://gemnasium.com/pierreinglebert/grunt-zopfli-native.png)](https://gemnasium.com/pierreinglebert/grunt-zopfli-native)
-
 
 ## Installing
 
@@ -28,40 +24,40 @@ Task targets, files and options may be specified according to the grunt [Configu
 
 Choose an output format, you can choose between `gzip`, `zlib` or `deflate`. Defaults to gzip.
 
-```javascript
- zopfli({ format: 'zlib' })
+```js
+zopfli({ format: 'zlib' })
  ```
 
 #### extension `String`
 
 Forces an extension to your files. Defaults depends on the mode chosen.
 
-```javascript
- zopfli({ format: 'zlib' })
+```js
+zopfli({ format: 'zlib' })
  ```
 
 #### limit `Number`
 
 Limit on the number of files compressed in parallel. Defaults to the number of CPUs on the host (as per the `os` module).
 
-_Setting this limit greater than UV_THREADPOOL_SIZE (defaults to 4) won't really work as desired. Increasing UV_THREADPOOL_SIZE is a good idea if needed. (e.g. `UV_THREADPOOL_SIZE=10 grunt zopfli`)_
+Setting this limit greater than `UV_THREADPOOL_SIZE` (defaults to 4) won't really work as desired. Increasing `UV_THREADPOOL_SIZE` is a good idea if needed. (e.g. `UV_THREADPOOL_SIZE=10 grunt zopfli`)
 
-```javascript
- zopfli({ limit: 1 })
+```js
+zopfli({ limit: 1 })
  ```
 
 #### zopfliOptions `Object`
 
 Options object to pass through to node-zopfli. See [node-zopfli documentation](https://github.com/pierreinglebert/node-zopfli#options) for more information.
 
-```javascript
+```js
 {
-    verbose: false,
-    verbose_more: false,
-    numiterations: 15,
-    blocksplitting: true,
-    blocksplittinglast: false,
-    blocksplittingmax: 15
+  verbose: false,
+  verbose_more: false,
+  numiterations: 15,
+  blocksplitting: true,
+  blocksplittinglast: false,
+  blocksplittingmax: 15
 };
 ```
 
@@ -73,14 +69,17 @@ Options object to pass through to node-zopfli. See [node-zopfli documentation](h
 ```js
 zopfli: {
   main: {
-    files: [
-      {src: ['path/*'], dest: 'gzipped_files/', filter: 'isFile'}
-    ]
+    files: [{
+      src: ['path/*'],
+      dest: 'gzipped_files/',
+      filter: 'isFile'
+    }]
   }
 }
 ```
 
 #### Compress your files for production
+
 ```js
 zopfli: {
   main: {
