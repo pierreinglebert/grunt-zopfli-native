@@ -1,3 +1,5 @@
+'use strict';
+
 var grunt = require('grunt');
 var path = require('path');
 var zlib = require('zlib');

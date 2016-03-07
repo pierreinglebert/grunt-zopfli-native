@@ -1,10 +1,10 @@
+'use strict';
+
 var fs = require('fs');
 var path = require('path');
-var prettySize = require('prettysize');
 var zopfli = require('node-zopfli');
 
 module.exports = function(grunt) {
-  'use strict';
 
   exports.detectMode = function(dest, ext) {
     var mode = 'gzip';
@@ -43,8 +43,8 @@ module.exports = function(grunt) {
 
     grunt.file.mkdir(path.dirname(dest));
 
-    if(ext && dest.indexOf(ext, dest.length - ext.length) === -1) {
-      if(ext.charAt(0) !== '.') {
+    if (ext && dest.indexOf(ext, dest.length - ext.length) === -1) {
+      if (ext.charAt(0) !== '.') {
         ext = '.' + ext;
       }
       dest += ext;
@@ -53,14 +53,14 @@ module.exports = function(grunt) {
     var destStream = fs.createWriteStream(dest);
     var compressStream = null;
 
-    if(mode === 'gzip') {
+    if (mode === 'gzip') {
       compressStream = zopfli.createGzip(zopfliOptions);
-    } else if(mode === 'deflate') {
+    } else if (mode === 'deflate') {
       compressStream = zopfli.createDeflate(zopfliOptions);
-    } else if(mode === 'zlib') {
+    } else if (mode === 'zlib') {
       compressStream = zopfli.createZlib(zopfliOptions);
     } else {
-      grunt.fail.warn("incorrect mode : " + mode);
+      grunt.fail.warn('incorrect mode: ' + mode);
       next();
       return;
     }

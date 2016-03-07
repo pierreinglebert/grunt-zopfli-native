@@ -1,7 +1,7 @@
 'use strict';
 
-var async = require('async'),
-  os = require('os');
+var async = require('async');
+var os = require('os');
 
 module.exports = function(grunt) {
 
@@ -15,8 +15,8 @@ module.exports = function(grunt) {
       zopfliOptions: {}
     });
 
-    var done = this.async(),
-      promises = [];
+    var done = this.async();
+    var promises = [];
 
     this.files.forEach(function(filePair) {
       filePair.src.forEach(function(src) {
@@ -24,11 +24,11 @@ module.exports = function(grunt) {
           return;
         }
 
-        if(zopfli.options.mode === null) {
+        if (zopfli.options.mode === null) {
           zopfli.options.mode = zopfli.detectMode(filePair.dest, zopfli.options.extension);
         }
 
-        if(zopfli.options.extension === null) {
+        if (zopfli.options.extension === null) {
           zopfli.options.extension = zopfli.detectExtension(zopfli.options.mode);
         }
 
@@ -40,8 +40,10 @@ module.exports = function(grunt) {
         });
       });
     });
+
     async.parallelLimit(promises, zopfli.options.limit, function(error) {
       done(!error);
     });
+
   });
 };
