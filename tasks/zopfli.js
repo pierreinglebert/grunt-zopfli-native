@@ -5,6 +5,7 @@ var os = require('os');
 
 module.exports = function(grunt) {
 
+  var _ = require('lodash');
   var zopfli = require('./lib/zopfli')(grunt);
 
   grunt.registerMultiTask('zopfli', 'Compress files.', function() {
@@ -32,7 +33,7 @@ module.exports = function(grunt) {
           zopfli.options.extension = zopfli.detectExtension(zopfli.options.mode);
         }
 
-        if (['gzip', 'zlib', 'deflate'].indexOf(zopfli.options.mode) === -1) {
+        if (_.includes(['gzip', 'zlib', 'deflate'], zopfli.options.mode) === false) {
           grunt.fail.warn('Mode ' + zopfli.options.mode + ' is not supported.');
         }
         promises.push(function(cb) {
