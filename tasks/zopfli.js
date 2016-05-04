@@ -32,7 +32,7 @@ module.exports = function(grunt) {
           zopfli.options.extension = zopfli.detectExtension(zopfli.options.mode);
         }
 
-        if (grunt.util._.include(['gzip', 'zlib', 'deflate'], zopfli.options.mode) === false) {
+        if (['gzip', 'zlib', 'deflate'].indexOf(zopfli.options.mode) === -1) {
           grunt.fail.warn('Mode ' + zopfli.options.mode + ' is not supported.');
         }
         promises.push(function(cb) {
