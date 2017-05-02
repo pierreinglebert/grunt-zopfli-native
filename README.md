@@ -93,7 +93,7 @@ zopfli: {
 }
 ```
 
-#### Gzip files and overwrite originals
+#### Gzip files and preserve filenames
 
 ```js
 zopfli: {
@@ -102,7 +102,7 @@ zopfli: {
       expand: true,
       cwd: 'build/',
       src: ['*.{png,jpg,js}'],
-      dest: 'build/'
+      dest: 'build/compressed/'
     }],
     options: {
       extension: ''
