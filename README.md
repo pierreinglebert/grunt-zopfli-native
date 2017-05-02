@@ -25,7 +25,7 @@ Task targets, files and options may be specified according to the grunt [Configu
 Choose an output format, you can choose between `gzip`, `zlib` or `deflate`. Defaults to gzip.
 
 ```js
-zopfli({ format: 'zlib' })
+zopfli({ mode: 'zlib' })
  ```
 
 #### extension `String`
@@ -33,8 +33,10 @@ zopfli({ format: 'zlib' })
 Forces an extension to your files. Defaults depends on the mode chosen.
 
 ```js
-zopfli({ format: 'zlib' })
+zopfli({ extension: '.gzip' })
  ```
+ 
+Providing an empty string will disable adding an extension (eg. preventing '.gz' being added when gzip mode is used).
 
 #### limit `Number`
 
@@ -87,6 +89,24 @@ zopfli: {
     cwd: 'assets/',
     src: ['**/*'],
     dest: 'public/'
+  }
+}
+```
+
+#### Gzip files and overwrite originals
+
+```js
+zopfli: {
+  main: {
+    files: [{
+      expand: true,
+      cwd: 'build/',
+      src: ['*.{png,jpg,js}'],
+      dest: 'build/'
+    }],
+    options: {
+      extension: ''
+    }
   }
 }
 ```
